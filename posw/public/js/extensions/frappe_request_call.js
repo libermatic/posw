@@ -1,10 +1,13 @@
 import queryString from 'query-string';
 
+import { utils } from '../store';
+
 export default async function frappe_request_call(opts) {
   frappe.request.prepare(opts);
 
   let data;
-  const req = new Request(getUrl(opts), {
+  const url = getUrl(opts);
+  const req = new Request(url, {
     method: opts.type,
     headers: getHeaders(opts),
     body: getBody(opts),
@@ -39,6 +42,13 @@ export default async function frappe_request_call(opts) {
       );
       console.trace(e);
     }
+
+    // store in cache
+    utils.attempt_cache({
+      method: url.pathname.replace('/api/method/', ''),
+      args: opts.args,
+      data,
+    });
 
     return data;
   } finally {
