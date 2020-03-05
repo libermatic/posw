@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/libermatic/posw/issues"
   },
-  "homepage": "https://github.com/libermatic/posw#readme"
+  "homepage": "https://github.com/libermatic/posw#readme",
+  "dependencies": {
+    "dexie": "^2.0.4",
+    "lodash": "^4.17.15",
+    "query-string": "^6.11.1"
+  }
 }
