@@ -16,6 +16,7 @@ export default async function frappe_request_call(opts) {
   try {
     const res = await fetch(req);
     data = await res.json();
+
     // sync attached docs
     if (data.docs || data.docinfo) {
       frappe.model.sync(data);

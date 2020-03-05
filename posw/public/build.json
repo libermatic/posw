@@ -1,3 +1,4 @@
 {
-  "js/posw.min.js": ["public/js/index.js"]
+  "js/posw.min.js": ["public/js/index.js"],
+  "js/posw-worker.min.js": ["public/js/worker/index.js"]
 }

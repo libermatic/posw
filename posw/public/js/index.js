@@ -12,4 +12,10 @@ if ('serviceWorker' in navigator) {
 
   // polyfill non-standard Promise method used by jQuery
   Promise.prototype.always = Promise.prototype.finally;
+
+  navigator.serviceWorker
+    .register('/assets/posw/js/service-worker.js', { scope: '/desk' })
+    .catch(function(error) {
+      console.log('Service worker registration failed, error:', error);
+    });
 }
