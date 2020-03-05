@@ -1,7 +1,5 @@
 import queryString from 'query-string';
 
-import { utils } from '../store';
-
 export default async function frappe_request_call(opts) {
   frappe.request.prepare(opts);
 
@@ -32,24 +30,17 @@ export default async function frappe_request_call(opts) {
     try {
       if (status_code_handler) {
         status_code_handler(data);
-      } else if (res.statusText !== 'OK' && opts.error_callback) {
+      } else if (res.ok && opts.error_callback) {
         opts.error_callback(data);
       }
     } catch (e) {
       console.log(
-        res.statusText === 'OK'
+        res.ok
           ? 'Unable to handle success response'
           : 'Unable to handle failed response'
       );
       console.trace(e);
     }
-
-    // store in cache
-    utils.attempt_cache({
-      method: url.pathname.replace('/api/method/', ''),
-      args: opts.args,
-      data,
-    });
 
     return data;
   } finally {
