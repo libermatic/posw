@@ -1,1 +1,3 @@
-erpnext.pos.PointOfSale = posw.extensions.pos(erpnext.pos.PointOfSale);
+if ('serviceWorker' in navigator) {
+  erpnext.pos.PointOfSale = posw.extensions.pos(erpnext.pos.PointOfSale);
+}

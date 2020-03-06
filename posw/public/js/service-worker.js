@@ -20,6 +20,12 @@ class Worker {
         })()
       );
     });
+
+    self.addEventListener('message', async function(e) {
+      if (e.data === 'load_master_data') {
+        self.posw.store.background_fetch();
+      }
+    });
   }
 }
 
