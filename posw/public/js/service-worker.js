@@ -22,8 +22,13 @@ class Worker {
     });
 
     self.addEventListener('message', async function(e) {
-      if (e.data === 'load_master_data') {
-        self.posw.store.background_fetch();
+      try {
+        const { action, payload } = JSON.parse(e.data);
+        if (action === 'load_master_data') {
+          e.waitUntil(self.posw.store.background_fetch(payload));
+        }
+      } catch (e) {
+        console.log('Invalid message.');
       }
     });
   }

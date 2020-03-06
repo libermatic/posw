@@ -11,7 +11,12 @@ export default function base(Pos) {
     async load_master_data() {
       const registration = await navigator.serviceWorker.ready;
       if (registration.active) {
-        registration.active.postMessage('load_master_data');
+        registration.active.postMessage(
+          JSON.stringify({
+            action: 'load_master_data',
+            payload: { csrf_token: frappe.csrf_token },
+          })
+        );
       }
     }
   }
