@@ -18,6 +18,7 @@
   "homepage": "https://github.com/libermatic/posw#readme",
   "dependencies": {
     "dexie": "^2.0.4",
+    "dexie-relationships": "^1.2.11",
     "lodash": "^4.17.15",
     "query-string": "^6.11.1"
   }
