@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-import db from '../store';
+import { db } from '../store';
 
 export function parseQueryString(args) {
   return queryString.parse(args);
