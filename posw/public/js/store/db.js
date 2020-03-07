@@ -1,6 +1,15 @@
 import Dexie from 'dexie';
 import relationships from 'dexie-relationships';
 
+export const tables = {
+  'POS Profile': 'pos_profiles',
+  Customer: 'customers',
+  'Item Group': 'item_groups',
+  Item: 'items',
+  'Item Barcode': 'item_barcodes',
+  'UOM Conversion Detail': 'uom_conversion_details',
+};
+
 const db = new Dexie('posw', { addons: [relationships] });
 db.version(1).stores({
   system: 'id',

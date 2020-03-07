@@ -1,14 +1,5 @@
-import db from './db';
+import db, { tables } from './db';
 import queryString from 'query-string';
-
-const tables = {
-  'POS Profile': 'pos_profiles',
-  Customer: 'customers',
-  'Item Group': 'item_groups',
-  Item: 'items',
-  'Item Barcode': 'item_barcodes',
-  'UOM Conversion Detail': 'uom_conversion_details',
-};
 
 export default async function background_fetch({ csrf_token }) {
   const settings = (await db.system.get(1)) || {};
