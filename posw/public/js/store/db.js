@@ -7,6 +7,7 @@ db.version(1).stores({
   pos_profiles: 'name',
   customers:
     'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
+  item_groups: 'name, modified',
   items: 'name, item_name, description, item_group, customer_code, modified',
   item_barcodes: 'name, barcode, parent -> items.name, modified',
   uom_conversion_details:

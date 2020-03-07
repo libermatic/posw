@@ -1,13 +1,15 @@
 import { db } from '../../store';
 
+import { parseArgs } from '../utils';
+
 export default async function search_link({
   doctype,
   txt,
   query = null,
   page_length = 20,
+  filters = null,
 
   // unused params
-  filters = null,
   searchfield = null,
   reference_doctype = null,
   ignore_user_permissions = false,
@@ -38,5 +40,18 @@ export default async function search_link({
       value: row[id],
       description: otherFields.map(x => row[x]).join(', '),
     }));
+  }
+  if (
+    doctype === 'Item Group' &&
+    query ===
+      'erpnext.selling.page.point_of_sale.point_of_sale.item_group_query'
+  ) {
+    const { pos_profile } = parseArgs(filters) || {};
+    if (pos_profile) {
+      const result = await db.pos_profiles.get(pos_profile);
+      return (
+        result && result.item_groups.map(x => ({ value: x, description: '' }))
+      );
+    }
   }
 }

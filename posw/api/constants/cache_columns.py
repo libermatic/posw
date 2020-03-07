@@ -61,6 +61,16 @@ customer = [
     "territory",
 ]
 
+item_group = [
+    "is_group",
+    "item_group_name",
+    "lft",
+    "modified",
+    "name",
+    "parent_item_group",
+    "rgt",
+]
+
 item = [
     "brand",
     "customer",
@@ -104,6 +114,7 @@ uom_conversion_detail = [
 tables = {
     "POS Profile": pos_profile,
     "Customer": customer,
+    "Item Group": item_group,
     "Item": item,
     "Item Barcode": item_barcode,
     "UOM Conversion Detail": uom_conversion_detail,

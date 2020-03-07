@@ -4,6 +4,7 @@ import queryString from 'query-string';
 const tables = {
   'POS Profile': 'pos_profiles',
   Customer: 'customers',
+  'Item Group': 'item_groups',
   Item: 'items',
   'Item Barcode': 'item_barcodes',
   'UOM Conversion Detail': 'uom_conversion_details',

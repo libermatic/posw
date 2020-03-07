@@ -1,9 +1,26 @@
 import queryString from 'query-string';
+import isPlainObject from 'lodash/isPlainObject';
+import isString from 'lodash/isString';
 
 import { db } from '../store';
 
 export function parseQueryString(args) {
   return queryString.parse(args);
+}
+
+export function parseArgs(args) {
+  if (isPlainObject(args)) {
+    return args;
+  }
+
+  if (isString(args)) {
+    try {
+      return JSON.parse(args);
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
 }
 
 export function getMethod(req) {
