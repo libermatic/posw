@@ -11,7 +11,7 @@ class Worker {
         (async function() {
           const client = await self.clients.get(e.clientId);
           if (client && client.url.includes('desk#point-of-sale')) {
-            const response = await self.posw.makeCachedResponse(e.request);
+            const response = await posw.intercept.request(e.request);
             if (response) {
               return response;
             }
@@ -24,7 +24,7 @@ class Worker {
     self.addEventListener('message', async function(e) {
       const { action, payload } = e.data || {};
       if (action === 'load_master_data') {
-        e.waitUntil(self.posw.store.background_fetch(payload));
+        e.waitUntil(posw.store.background_fetch(payload));
       }
     });
   }

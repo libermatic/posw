@@ -6,12 +6,24 @@ export function parseQueryString(args) {
   return queryString.parse(args);
 }
 
-function getMethod(req) {
+export function getMethod(req) {
   const url = new URL(req.url);
   if (!url.pathname.includes('/api/method/')) {
     return null;
   }
   return url.pathname.replace('/api/method/', '');
+}
+
+export function getArgs(args) {
+  return queryString.parse(args);
+}
+
+export function respond(payload) {
+  return new Response(JSON.stringify(payload), {
+    status: 200,
+    ok: true,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export async function makeCachedResponse(request) {
