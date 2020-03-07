@@ -1,6 +1,43 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+pos_profile = [
+    "account_for_change_amount",
+    "allow_delete",
+    "allow_print_before_pay",
+    "allow_user_to_edit_discount",
+    "allow_user_to_edit_rate",
+    "apply_discount_on",
+    "campaign",
+    "company",
+    "company_address",
+    "cost_center",
+    "country",
+    "currency",
+    "customer",
+    "customer_group",
+    "disabled",
+    "display_items_in_stock",
+    "expense_account",
+    "ignore_pricing_rule",
+    "income_account",
+    "letter_head",
+    "modified",
+    "name",
+    "naming_series",
+    "print_format",
+    "print_format_for_online",
+    "select_print_heading",
+    "selling_price_list",
+    "taxes_and_charges",
+    "tc_name",
+    "territory",
+    "update_stock",
+    "warehouse",
+    "write_off_account",
+    "write_off_cost_center",
+]
+
 
 customer = [
     "customer_details",
@@ -63,7 +100,9 @@ uom_conversion_detail = [
     "uom",
 ]
 
-fields = {
+
+tables = {
+    "POS Profile": pos_profile,
     "Customer": customer,
     "Item": item,
     "Item Barcode": item_barcode,
@@ -72,6 +111,6 @@ fields = {
 
 
 def get_columns(doctype):
-    if doctype not in fields:
+    if doctype not in tables:
         return None, None
-    return "tab{}".format(doctype), fields.get(doctype)
+    return "tab{}".format(doctype), tables.get(doctype)

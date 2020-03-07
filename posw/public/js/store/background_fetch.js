@@ -2,6 +2,7 @@ import db from './db';
 import queryString from 'query-string';
 
 const tables = {
+  'POS Profile': 'pos_profiles',
   Customer: 'customers',
   Item: 'items',
   'Item Barcode': 'item_barcodes',
@@ -15,7 +16,7 @@ export default async function background_fetch({ csrf_token }) {
   const currentTime = new Date().toISOString();
   const options = getOptions(csrf_token);
   await Promise.all(
-    ['Customer', 'Item', 'Item Barcode', 'UOM Conversion Detail'].map(doctype =>
+    Object.keys(tables).map(doctype =>
       batchRequest({ doctype, lastUpdated, options })
     )
   );

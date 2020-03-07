@@ -4,6 +4,7 @@ import relationships from 'dexie-relationships';
 const db = new Dexie('posw', { addons: [relationships] });
 db.version(1).stores({
   system: 'id',
+  pos_profiles: 'name',
   customers:
     'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
   items: 'name, item_name, description, item_group, customer_code, modified',
