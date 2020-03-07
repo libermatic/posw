@@ -31,6 +31,14 @@ export function getMethod(req) {
   return url.pathname.replace('/api/method/', '');
 }
 
+export function getParams(req) {
+  const url = new URL(req.url);
+  if (url.search) {
+    return queryString.parse(url.search);
+  }
+  return null;
+}
+
 export function getArgs(args) {
   return queryString.parse(args);
 }
