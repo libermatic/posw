@@ -19,7 +19,7 @@
   "dependencies": {
     "dexie": "^2.0.4",
     "dexie-relationships": "^1.2.11",
-    "lodash": "^4.17.15",
-    "query-string": "^6.11.1"
+    "query-string": "^6.11.1",
+    "ramda": "^0.27.0"
   }
 }
