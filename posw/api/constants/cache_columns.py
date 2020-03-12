@@ -98,7 +98,6 @@ item_barcode = [
     "modified",
     "name",
     "parent",
-    "parentfield",
 ]
 
 uom_conversion_detail = [
@@ -106,8 +105,43 @@ uom_conversion_detail = [
     "modified",
     "name",
     "parent",
-    "parentfield",
     "uom",
+]
+
+item_price = [
+    "currency",
+    "customer",
+    "item_code",
+    "min_qty",
+    "modified",
+    "name",
+    "packing_unit",
+    "price_list",
+    "price_list_rate",
+    "selling",
+    "uom",
+    "valid_from",
+    "valid_upto",
+]
+
+bin = [
+    "actual_qty",
+    "fcfs_rate",
+    "indented_qty",
+    "item_code",
+    "ma_rate",
+    "modified",
+    "name",
+    "ordered_qty",
+    "planned_qty",
+    "projected_qty",
+    "reserved_qty",
+    "reserved_qty_for_production",
+    "reserved_qty_for_sub_contract",
+    "stock_uom",
+    "stock_value",
+    "valuation_rate",
+    "warehouse",
 ]
 
 
@@ -118,6 +152,8 @@ tables = {
     "Item": item,
     "Item Barcode": item_barcode,
     "UOM Conversion Detail": uom_conversion_detail,
+    "Item Price": item_price,
+    "Bin": bin,
 }
 
 
