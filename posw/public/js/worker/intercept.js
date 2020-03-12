@@ -7,7 +7,7 @@ export async function request(_request) {
   if (method === 'erpnext.selling.page.point_of_sale.point_of_sale.get_items') {
     const args = getArgs(await req.text());
     const message = await methods.get_items(args);
-    return respond({ message });
+    return message && respond({ message });
   }
   if (method === 'frappe.desk.search.search_link') {
     const args = getArgs(await req.text());
