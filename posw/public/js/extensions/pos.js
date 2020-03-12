@@ -1,7 +1,7 @@
-import flowRight from 'lodash/flowRight';
+import { compose } from 'ramda';
 
 import { pageOverrides } from '../pos';
 
-const pos = flowRight(pageOverrides);
+const pos = compose(...pageOverrides);
 
 export default pos;

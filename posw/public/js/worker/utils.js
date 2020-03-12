@@ -1,6 +1,4 @@
 import queryString from 'query-string';
-import isPlainObject from 'lodash/isPlainObject';
-import isString from 'lodash/isString';
 
 import { db } from '../store';
 
@@ -9,11 +7,11 @@ export function parseQueryString(args) {
 }
 
 export function parseArgs(args) {
-  if (isPlainObject(args)) {
+  if (args && typeof args === 'object') {
     return args;
   }
 
-  if (isString(args)) {
+  if (typeof args === 'string' || args instanceof String) {
     try {
       return JSON.parse(args);
     } catch (e) {
