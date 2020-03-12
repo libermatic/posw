@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import frappe
+from frappe.desk.reportview import get_match_cond
 from toolz import concatv, compose, merge, groupby, first, excepts
 
-from posw.api.constants.cache_columns import tables, get_columns
+from posw.api.constants.cache_columns import tables, get_columns, get_more_clauses
 
 
 @frappe.whitelist()
@@ -37,6 +38,11 @@ def background_fetch(doctype, cursor=None, modified=None, limit=100):
 _query = "SELECT {columns} FROM `{table}` {where} ORDER BY name LIMIT %(limit)s"
 
 
+def _get_match_conditions(doctype):
+    match_conditions = get_match_cond(doctype)
+    return ["({})".format(match_conditions)] if match_conditions else []
+
+
 def _get_result(doctype, cursor, modified, limit):
     if doctype == "POS Profile":
         return _get_pos_profiles(cursor, modified, limit)
@@ -45,7 +51,12 @@ def _get_result(doctype, cursor, modified, limit):
         _query.format(
             columns=", ".join(columns),
             table=table,
-            where=_get_where(cursor, modified, limit),
+            where=_get_where(
+                cursor,
+                modified,
+                limit,
+                more=get_more_clauses(doctype) + _get_match_conditions(doctype),
+            ),
         ),
         values=_get_values(cursor, modified, limit),
         as_dict=1,

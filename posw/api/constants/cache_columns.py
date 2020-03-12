@@ -81,7 +81,6 @@ item = [
     "has_expiry_date",
     "has_serial_no",
     "has_variants",
-    "is_fixed_asset",
     "is_stock_item",
     "item_code",
     "item_group",
@@ -156,8 +155,14 @@ tables = {
     "Bin": bin,
 }
 
+_more_clauses = {"Item": ["is_sales_item = 1"]}
+
 
 def get_columns(doctype):
     if doctype not in tables:
         return None, None
     return "tab{}".format(doctype), tables.get(doctype)
+
+
+def get_more_clauses(doctype):
+    return _more_clauses.get(doctype, [])
