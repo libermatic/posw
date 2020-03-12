@@ -30,7 +30,7 @@ export default async function frappe_request_call(opts) {
     try {
       if (status_code_handler) {
         status_code_handler(data);
-      } else if (res.ok && opts.error_callback) {
+      } else if (!res.ok && opts.error_callback) {
         opts.error_callback(data);
       }
     } catch (e) {
