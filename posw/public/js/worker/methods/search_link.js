@@ -49,9 +49,17 @@ export default async function search_link({
     const { pos_profile } = parseArgs(filters) || {};
     if (pos_profile) {
       const result = await db.pos_profiles.get(pos_profile);
-      return (
-        result && result.item_groups.map(x => ({ value: x, description: '' }))
-      );
+      if (result && result.item_groups.length > 0) {
+        return result.item_groups
+          .filter(x => !txt || x.toLowerCase().includes(txt.toLowerCase()))
+          .map(x => ({ value: x, description: '' }));
+      }
     }
+    const result = await db.item_groups.limit(page_length).toArray();
+    return result
+      .filter(
+        ({ name }) => !txt || name.toLowerCase().includes(txt.toLowerCase())
+      )
+      .map(({ name: value }) => ({ value, description: '' }));
   }
 }
