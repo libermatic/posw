@@ -61,6 +61,29 @@ customer = [
     "territory",
 ]
 
+customer_group = [
+    "default_price_list",
+    "is_group",
+    "lft",
+    "modified",
+    "name",
+    "parent_customer_group",
+    "payment_terms",
+    "rgt",
+]
+
+territory = [
+    "is_group",
+    "lft",
+    "modified",
+    "name",
+    "owner",
+    "parent_territory",
+    "rgt",
+    "territory_manager",
+]
+
+
 item_group = [
     "is_group",
     "item_group_name",
@@ -147,6 +170,8 @@ bin = [
 tables = {
     "POS Profile": pos_profile,
     "Customer": customer,
+    "Customer Group": customer_group,
+    "Territory": territory,
     "Item Group": item_group,
     "Item": item,
     "Item Barcode": item_barcode,

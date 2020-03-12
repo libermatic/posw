@@ -1,7 +1,9 @@
 import { db, tables } from '../../store';
 
 export default async function validate_link({ value, options, fetch }) {
-  if (['Customer', 'Item Group'].includes(options)) {
+  if (
+    ['Customer', 'Customer Group', 'Territory', 'Item Group'].includes(options)
+  ) {
     const storeName = tables[options];
     const entity = await db.table(storeName).get(value);
     if (entity) {

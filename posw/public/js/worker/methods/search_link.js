@@ -55,11 +55,37 @@ export default async function search_link({
           .map(x => ({ value: x, description: '' }));
       }
     }
-    const result = await db.item_groups.limit(page_length).toArray();
+    const result = await db.item_groups
+      .filter(searchNameWithIgnoreCase(txt))
+      .toArray();
     return result
-      .filter(
-        ({ name }) => !txt || name.toLowerCase().includes(txt.toLowerCase())
-      )
+      .slice(0, page_length)
       .map(({ name: value }) => ({ value, description: '' }));
   }
+  if (doctype === 'Customer Group') {
+    const result = await db.customer_groups
+      .filter(searchNameWithIgnoreCase(txt))
+      .toArray();
+    return result
+      .slice(0, page_length)
+      .map(({ name: value, parent_customer_group: description }) => ({
+        value,
+        description,
+      }));
+  }
+  if (doctype === 'Territory') {
+    const result = await db.territories
+      .filter(searchNameWithIgnoreCase(txt))
+      .toArray();
+    return result
+      .slice(0, page_length)
+      .map(({ name: value, parent_territory: description }) => ({
+        value,
+        description,
+      }));
+  }
+}
+
+function searchNameWithIgnoreCase(txt) {
+  return ({ name }) => !txt || name.toLowerCase().includes(txt.toLowerCase());
 }

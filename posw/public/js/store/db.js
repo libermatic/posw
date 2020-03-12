@@ -4,6 +4,8 @@ import relationships from 'dexie-relationships';
 export const tables = {
   'POS Profile': 'pos_profiles',
   Customer: 'customers',
+  'Customer Group': 'customer_groups',
+  Territory: 'territories',
   'Item Group': 'item_groups',
   Item: 'items',
   'Item Barcode': 'item_barcodes',
@@ -18,6 +20,8 @@ db.version(1).stores({
   pos_profiles: 'name',
   customers:
     'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
+  customer_groups: 'name',
+  territories: 'name',
   item_groups: 'name, lft, rgt, modified',
   items: 'name, item_name, description, item_group, customer_code, modified',
   item_barcodes: 'name, barcode, parent -> items.name, modified',
