@@ -17,6 +17,9 @@ export const tables = {
 const db = new Dexie('posw', { addons: [relationships] });
 db.version(1).stores({
   system: 'id',
+  oneshots: 'id',
+
+  // caches of back-end data
   pos_profiles: 'name',
   customers:
     'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
@@ -33,13 +36,23 @@ db.version(1).stores({
 });
 
 export async function getSetting(key) {
-  const settings = (await db.system.get(1)) || {};
-  return settings[key];
+  const entity = (await db.system.get(1)) || {};
+  return entity[key];
 }
 
 export async function putSetting(key, value) {
-  const settings = (await db.system.get(1)) || {};
-  return db.system.put(Object.assign(settings, { id: 1, [key]: value }));
+  const entity = (await db.system.get(1)) || {};
+  return db.system.put(Object.assign(entity, { id: 1, [key]: value }));
+}
+
+export async function getOneshot(key) {
+  const entity = (await db.oneshots.get(1)) || {};
+  return entity[key];
+}
+
+export async function putOneshot(key, value) {
+  const entity = (await db.oneshots.get(1)) || {};
+  return db.oneshots.put(Object.assign(entity, { id: 1, [key]: value }));
 }
 
 export default db;

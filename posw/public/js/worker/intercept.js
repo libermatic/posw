@@ -1,4 +1,4 @@
-import { putSetting } from '../store';
+import { putOneshot } from '../store';
 import * as methods from './methods';
 import { getMethod, getParams, getArgs, respond } from './utils';
 
@@ -49,7 +49,7 @@ async function getPayload(_request) {
       return valid;
     }
     const data = await fetch(_request).then(r => r.json());
-    await putSetting('runserverobj:SalesInvoice.set_missing_values', data);
+    await putOneshot('runserverobj:SalesInvoice.set_missing_values', data);
     return data;
   }
   return null;

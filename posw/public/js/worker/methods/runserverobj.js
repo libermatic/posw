@@ -1,4 +1,4 @@
-import { db, getSetting } from '../../store';
+import { db, getOneshot } from '../../store';
 
 export default async function runserverobj({
   method,
@@ -13,7 +13,7 @@ export default async function runserverobj({
   if (method === 'set_missing_values' && docs) {
     const parsed = JSON.parse(docs);
     if (parsed && parsed.doctype === 'Sales Invoice') {
-      const data = await getSetting(
+      const data = await getOneshot(
         'runserverobj:SalesInvoice.set_missing_values'
       );
       if (data && data.docs && data.docs[0]) {
