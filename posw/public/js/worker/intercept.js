@@ -20,6 +20,11 @@ async function getPayload(_request) {
     const message = await methods.get_items(args);
     return message && { message };
   }
+  if (method === 'frappe.client.get_value') {
+    const args = getParams(req);
+    const message = await methods.get_value(args);
+    return message && { message };
+  }
   if (method === 'frappe.desk.search.search_link') {
     const args = getArgs(await req.text());
     const results = await methods.search_link(args);
