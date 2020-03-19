@@ -20,8 +20,8 @@ export default async function validate_link({ value, options, fetch }) {
     'Price List': 'selling_price_list',
   };
   if (Object.keys(doctypeToPosField).includes(options) && !fetch) {
-    const pos_profile = await getSetting('pos_profile').then(name =>
-      db.pos_profiles.get(name)
+    const pos_profile = await getSetting('pos_profile').then(
+      name => name && db.pos_profiles.get(name)
     );
     if (pos_profile && pos_profile[doctypeToPosField[options]] === value) {
       return { message: 'Ok', valid_value: value };
