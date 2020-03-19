@@ -21,7 +21,7 @@ async function getPayload(_request) {
     return message && { message };
   }
   if (method === 'frappe.client.get_value') {
-    const args = getParams(req);
+    const args = getParams(req) || getArgs(await req.text());
     const message = await methods.get_value(args);
     return message && { message };
   }
