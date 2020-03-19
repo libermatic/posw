@@ -32,4 +32,14 @@ db.version(1).stores({
   bins: 'name, item_code, warehouse, actual_qty',
 });
 
+export async function getSetting(key) {
+  const settings = (await db.system.get(1)) || {};
+  return settings[key];
+}
+
+export async function putSetting(key, value) {
+  const settings = (await db.system.get(1)) || {};
+  return db.system.put(Object.assign(settings, { id: 1, [key]: value }));
+}
+
 export default db;
