@@ -83,6 +83,20 @@ territory = [
     "territory_manager",
 ]
 
+loyalty_program = [
+    "company",
+    "conversion_factor",
+    "cost_center",
+    "customer_group",
+    "customer_territory",
+    "expense_account",
+    "expiry_duration",
+    "from_date",
+    "loyalty_program_type",
+    "modified",
+    "to_date",
+]
+
 
 item_group = [
     "is_group",
@@ -172,6 +186,7 @@ tables = {
     "Customer": customer,
     "Customer Group": customer_group,
     "Territory": territory,
+    "Loyalty Program": loyalty_program,
     "Item Group": item_group,
     "Item": item,
     "Item Barcode": item_barcode,
