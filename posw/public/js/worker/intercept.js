@@ -4,9 +4,22 @@ import { getMethod, getParams, getArgs, respond } from './utils';
 
 export async function request(_request) {
   const method = getMethod(_request);
-  const payload = await getPayload(_request);
-  if (payload) {
-    return respond(payload);
+  try {
+    const payload = await getPayload(_request);
+    if (payload) {
+      return respond(payload);
+    }
+  } catch (e) {
+    return respond(
+      {
+        _server_messages: JSON.stringify([
+          { indicator: 'red', message: e.message },
+        ]),
+        exc: JSON.stringify([e.stack]),
+        exc_type: e.name,
+      },
+      /* status */ 417
+    );
   }
 
   // log unhandled requests

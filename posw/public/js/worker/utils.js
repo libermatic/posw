@@ -41,10 +41,10 @@ export function getArgs(args) {
   return queryString.parse(args);
 }
 
-export function respond(payload) {
+export function respond(payload, status = 200) {
   return new Response(JSON.stringify(payload), {
-    status: 200,
-    ok: true,
+    status,
+    ok: 200 <= status && status < 300,
     headers: { 'Content-Type': 'application/json' },
   });
 }
