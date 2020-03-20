@@ -8,7 +8,9 @@ export async function request(_request) {
   if (payload) {
     return respond(payload);
   }
-  method && console.log(method);
+
+  // log unhandled requests
+  method && console.log(`%c${method}`, 'color: #42a5f5;');
   return null;
 }
 
