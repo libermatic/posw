@@ -1,6 +1,7 @@
-import { db, getOneshot } from '../../store';
+import { db, getOneshot, putOneshot } from '../../store';
+import { getArgs } from '../utils';
 
-export default async function runserverobj({
+async function runserverobj({
   method,
   docs = null,
 
@@ -23,4 +24,17 @@ export default async function runserverobj({
       }
     }
   }
+  return null;
+}
+
+export default async function(_request) {
+  const req = _request.clone();
+  const args = getArgs(await req.text());
+  const valid = await runserverobj(args);
+  if (valid) {
+    return valid;
+  }
+  const data = await fetch(_request).then(r => r.json());
+  await putOneshot('runserverobj:SalesInvoice.set_missing_values', data);
+  return data;
 }

@@ -36,21 +36,7 @@ async function getPayload(_request) {
     return valid;
   }
   if (method === 'runserverobj') {
-    const args = getArgs(await req.text());
-    if (!args || args.method !== 'set_missing_values' || !args.docs) {
-      return null;
-    }
-    const { doctype } = JSON.parse(args.docs);
-    if (doctype !== 'Sales Invoice') {
-      return null;
-    }
-    const valid = await methods.runserverobj(args);
-    if (valid) {
-      return valid;
-    }
-    const data = await fetch(_request).then(r => r.json());
-    await putOneshot('runserverobj:SalesInvoice.set_missing_values', data);
-    return data;
+    return methods.runserverobj(_request);
   }
   return null;
 }
