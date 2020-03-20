@@ -52,5 +52,13 @@ async function getPayload(_request) {
   ) {
     return methods.get_default_taxes_and_charges(_request);
   }
+  if (
+    method ===
+    'erpnext.accounts.doctype.loyalty_program.loyalty_program.get_loyalty_program_details'
+  ) {
+    const args = getArgs(await req.text());
+    const message = await methods.get_loyalty_program_details(args);
+    return message && { message };
+  }
   return null;
 }

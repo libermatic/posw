@@ -9,3 +9,6 @@ export {
 export {
   default as get_default_taxes_and_charges,
 } from './get_default_taxes_and_charges';
+export {
+  default as get_loyalty_program_details,
+} from './get_loyalty_program_details';
