@@ -38,22 +38,38 @@ pos_profile = [
     "write_off_cost_center",
 ]
 
+company = [
+    "abbr",
+    "default_currency",
+    "default_receivable_account",
+    "modified",
+    "name",
+]
+
 
 customer = [
     "customer_details",
     "customer_group",
     "customer_name",
     "customer_pos_id",
+    "customer_primary_address",
+    "customer_primary_contact",
     "customer_type",
+    "default_bank_account",
+    "default_commission_rate",
+    "default_currency",
     "default_price_list",
+    "default_sales_partner",
     "disabled",
     "email_id",
+    "gst_category",
+    "image",
     "loyalty_program",
     "loyalty_program_tier",
+    "market_segment",
     "mobile_no",
     "modified",
     "name",
-    "owner",
     "payment_terms",
     "primary_address",
     "tax_category",
@@ -71,6 +87,16 @@ customer_group = [
     "payment_terms",
     "rgt",
 ]
+
+party_account = [
+    "account",
+    "company",
+    "modified",
+    "name",
+    "parent",
+    "parenttype",
+]
+
 
 territory = [
     "is_group",
@@ -183,8 +209,10 @@ bin = [
 
 tables = {
     "POS Profile": pos_profile,
+    "Company": company,
     "Customer": customer,
     "Customer Group": customer_group,
+    "Party Account": party_account,
     "Territory": territory,
     "Loyalty Program": loyalty_program,
     "Item Group": item_group,

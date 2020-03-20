@@ -12,3 +12,4 @@ export {
 export {
   default as get_loyalty_program_details,
 } from './get_loyalty_program_details';
+export { default as get_party_details } from './get_party_details';

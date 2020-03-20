@@ -3,8 +3,10 @@ import relationships from 'dexie-relationships';
 
 export const tables = {
   'POS Profile': 'pos_profiles',
+  Company: 'companies',
   Customer: 'customers',
   'Customer Group': 'customer_groups',
+  'Party Account': 'party_accounts',
   Territory: 'territories',
   'Loyalty Program': 'loyalty_programs',
   'Item Group': 'item_groups',
@@ -22,9 +24,11 @@ db.version(1).stores({
 
   // caches of back-end data
   pos_profiles: 'name',
+  companies: 'name',
   customers:
     'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
   customer_groups: 'name',
+  party_accounts: 'name, parenttype, parent, company',
   territories: 'name',
   loyalty_programs: 'name',
   item_groups: 'name, lft, rgt, modified',
