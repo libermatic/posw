@@ -38,5 +38,17 @@ async function getPayload(_request) {
   if (method === 'runserverobj') {
     return methods.runserverobj(_request);
   }
+  if (
+    method ===
+    'erpnext.setup.doctype.company.company.get_default_company_address'
+  ) {
+    return methods.get_default_company_address(_request);
+  }
+  if (
+    method ===
+    'erpnext.controllers.accounts_controller.get_default_taxes_and_charges'
+  ) {
+    return methods.get_default_taxes_and_charges(_request);
+  }
   return null;
 }
