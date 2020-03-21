@@ -40,7 +40,10 @@ pos_profile = [
 
 company = [
     "abbr",
+    "cost_center",
     "default_currency",
+    "default_expense_account",
+    "default_income_account",
     "default_receivable_account",
     "modified",
     "name",
@@ -152,6 +155,7 @@ item = [
     "name",
     "owner",
     "stock_uom",
+    "variant_of",
 ]
 
 item_barcode = [
@@ -169,6 +173,31 @@ uom_conversion_detail = [
     "parent",
     "uom",
 ]
+
+item_default = [
+    "buying_cost_center",
+    "company",
+    "default_price_list",
+    "default_supplier",
+    "default_warehouse",
+    "expense_account",
+    "income_account",
+    "modified",
+    "name",
+    "parent",
+    "selling_cost_center",
+]
+
+item_tax = [
+    "item_tax_template",
+    "modified",
+    "name",
+    "parent",
+    "parenttype",
+    "tax_category",
+    "valid_from",
+]
+
 
 item_price = [
     "currency",
@@ -206,6 +235,11 @@ bin = [
     "warehouse",
 ]
 
+item_tax_template = [
+    "modified",
+    "name",
+]
+
 
 tables = {
     "POS Profile": pos_profile,
@@ -219,8 +253,11 @@ tables = {
     "Item": item,
     "Item Barcode": item_barcode,
     "UOM Conversion Detail": uom_conversion_detail,
+    "Item Default": item_default,
+    "Item Tax": item_tax,
     "Item Price": item_price,
     "Bin": bin,
+    "Item Tax Template": item_tax_template,
 }
 
 _more_clauses = {"Item": ["is_sales_item = 1"]}

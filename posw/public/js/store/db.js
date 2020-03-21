@@ -13,8 +13,11 @@ export const tables = {
   Item: 'items',
   'Item Barcode': 'item_barcodes',
   'UOM Conversion Detail': 'uom_conversion_details',
+  'Item Default': 'item_defaults',
+  'Item Tax': 'item_taxes',
   'Item Price': 'item_prices',
   Bin: 'bins',
+  'Item Tax Template': 'item_tax_templates',
 };
 
 const db = new Dexie('posw', { addons: [relationships] });
@@ -36,9 +39,12 @@ db.version(1).stores({
   item_barcodes: 'name, barcode, parent -> items.name, modified',
   uom_conversion_details:
     'name, uom, conversion_factor, parent -> items.name, modified',
+  item_defaults: 'name, parent',
+  item_taxes: 'name, parent, item_tax_template -> item_tax_templates.name',
   item_prices:
     'name, item_code, uom, min_qty, price_list, customer, valid_from, valid_upto',
   bins: 'name, item_code, warehouse, actual_qty',
+  item_tax_templates: 'name',
 });
 
 export async function getSetting(key) {

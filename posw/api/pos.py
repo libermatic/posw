@@ -5,7 +5,7 @@ from frappe.desk.reportview import get_match_cond
 from toolz import compose
 
 from posw.api.constants.cache_columns import tables, get_columns, get_more_clauses
-from posw.api.pos_profile import get_pos_profiles
+from posw.api.pos_profile import get_pos_profiles, get_item_tax_templates
 from posw.api.utils import query_string, get_where, get_values
 
 
@@ -45,6 +45,8 @@ def _get_match_conditions(doctype):
 def _get_result(doctype, cursor, modified, limit):
     if doctype == "POS Profile":
         return get_pos_profiles(cursor, modified, limit)
+    if doctype == "Item Tax Template":
+        return get_item_tax_templates(cursor, modified, limit)
     table, columns = get_columns(doctype)
     return frappe.db.sql(
         query_string.format(
