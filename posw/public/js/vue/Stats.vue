@@ -1,10 +1,20 @@
 <template>
-  <div>
-    <h1>Storage</h1>
-    <dl>
-      <dt>Usage</dt>
-      <dd>{{ usage }} / {{ quota }}</dd>
-    </dl>
+  <div class="root">
+    <section>
+      <div class="title">
+        <dl>
+          <dt>Usage</dt>
+          <dd>{{ usage }}</dd>
+          <dd>{{ quota }}</dd>
+        </dl>
+      </div>
+      <div class="content">
+        <dl v-for="feature in features">
+          <dt>{{ feature.label }}</dt>
+          <dd>{{ feature.value }}</dd>
+        </dl>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -17,15 +27,58 @@ function convert(value) {
 
 export default {
   data: function() {
-    return { usage: '0', quota: '0' };
+    return { usage: '0', quota: '0', features: [] };
   },
   mounted: function() {
-    navigator.storage.estimate().then(({ usage, quota }) => {
+    navigator.storage.estimate().then(({ usage, quota, usageDetails = [] }) => {
       this.usage = convert(usage);
       this.quota = convert(quota);
+      this.features = [
+        ...Object.keys(usageDetails).map(k => ({
+          label: k,
+          value: convert(usageDetails[k]),
+        })),
+      ];
     });
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.root {
+  section {
+    display: flex;
+    align-items: center;
+    dl {
+      margin: 0;
+    }
+    .title {
+      min-width: 10em;
+      dd {
+        text-align: center;
+      }
+      dd:first-of-type {
+        font-size: 1.8em;
+        padding-bottom: 0.1em;
+        border-bottom: 1px solid #d1d8dd;
+        margin-bottom: 0.1em;
+      }
+    }
+    .content {
+      dl {
+        display: flex;
+        dt {
+          font-weight: 300;
+        }
+        dd {
+          order: -1;
+          width: 5em;
+          text-align: right;
+          margin: 0 1em;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+</style>
