@@ -15,7 +15,10 @@ if ('serviceWorker' in navigator) {
 
   navigator.serviceWorker
     .register('/assets/posw/js/service-worker.js', { scope: '/desk' })
-    .catch(function(error) {
+    .then(() => {
+      console.log('Service worker registered');
+    })
+    .catch(error => {
       console.log('Service worker registration failed, error:', error);
     });
 }
