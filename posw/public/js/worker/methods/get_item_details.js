@@ -136,38 +136,57 @@ async function getItemTax(item, parsed) {
   return { item_tax_template: null, item_tax_rate: '{}' };
 }
 
-async function getItemPrice(item, parsed, uom, conversion_factor) {
-  const item_prices = await db.item_prices
-    .where('item_code')
-    .equals(item.item_code)
-    .and(
-      x =>
-        x.price_list === parsed.price_list &&
-        x.currency === parsed.currency &&
-        (!x.uom || x.uom === uom) &&
-        new Date(x.valid_from || '2000-01-01') <=
-          new Date(parsed.transaction_date) &&
-        new Date(parsed.transaction_date) <=
-          new Date(x.valid_upto || '2500-12-31')
-    )
-    .toArray();
+export async function getItemPrice({
+  item_code,
+  variant_of,
+  customer,
+  price_list,
+  currency,
+  transaction_date,
+  uom,
+  conversion_factor,
+}) {
+  function getUomPrice(prices) {}
 
-  function getUomPrice(prices) {
-    const { price_list_rate, uom: item_priceUom } = prices[0];
-    if (item_priceUom === uom) {
-      return price_list_rate;
+  const getFiltered = R.curry((fn, prices) => {
+    const filtered = prices.filter(fn);
+    if (filtered.length > 0) {
+      const { price_list_rate, uom: item_priceUom } = filtered[0];
+      return item_priceUom === uom
+        ? price_list_rate
+        : price_list_rate * conversion_factor;
     }
-    return price_list_rate * conversion_factor;
+  });
+
+  async function getPrice(name) {
+    const prices = await db.item_prices
+      .where('item_code')
+      .equals(name)
+      .and(
+        x =>
+          x.price_list === price_list &&
+          x.currency === currency &&
+          (!x.uom || x.uom === uom) &&
+          new Date(x.valid_from || '2000-01-01') <=
+            new Date(transaction_date) &&
+          new Date(transaction_date) <= new Date(x.valid_upto || '2500-12-31')
+      )
+      .toArray();
+    const getCustomerPrice = getFiltered(x => x.customer === customer);
+    const getGeneralPrice = getFiltered(x => !x.customer);
+    return getCustomerPrice(prices) || getGeneralPrice(prices);
   }
 
-  const customerPrice = item_prices.filter(x => x.customer === parsed.customer);
-  if (customerPrice.length > 0) {
-    return getUomPrice(customerPrice);
+  const itemPrice = await getPrice(item_code);
+  if (itemPrice) {
+    return itemPrice;
   }
 
-  const generalPrice = item_prices.filter(x => !x.customer);
-  if (generalPrice.length > 0) {
-    return getUomPrice(generalPrice);
+  if (variant_of) {
+    const templatePrice = await getPrice(variant_of);
+    if (templatePrice) {
+      return templatePrice;
+    }
   }
 
   return 0;
@@ -239,10 +258,11 @@ export default async function({
 
   const stock_qty = qty * conversion_factor;
   const price_list_rate = await getItemPrice(
-    item,
-    parsed,
-    uom,
-    conversion_factor
+    Object.assign(
+      { uom, conversion_factor, item_code: item.name },
+      R.pick(['variant_of'], item),
+      R.pick(['customer', 'price_list', 'currency', 'transaction_date'], parsed)
+    )
   );
   const base_rate = 0;
 
