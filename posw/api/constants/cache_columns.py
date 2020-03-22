@@ -199,6 +199,15 @@ item_tax = [
 ]
 
 
+price_list = [
+    "currency",
+    "enabled",
+    "modified",
+    "name",
+    "price_not_uom_dependent",
+]
+
+
 item_price = [
     "currency",
     "customer",
@@ -256,11 +265,12 @@ tables = {
     "Item Default": item_default,
     "Item Tax": item_tax,
     "Item Price": item_price,
+    "Price List": price_list,
     "Bin": bin,
     "Item Tax Template": item_tax_template,
 }
 
-_more_clauses = {"Item": ["is_sales_item = 1"]}
+_more_clauses = {"Item": ["is_sales_item = 1"], "Price List": ["selling = 1"]}
 
 
 def get_columns(doctype):

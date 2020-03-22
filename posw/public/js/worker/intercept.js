@@ -91,5 +91,10 @@ async function getPayload(_request) {
     const message = await methods.get_item_details(args);
     return message && { message };
   }
+  if (method === 'erpnext.stock.get_item_details.apply_price_list') {
+    const args = getArgs(await req.text());
+    const message = await methods.apply_price_list(args);
+    return message && { message };
+  }
   return null;
 }

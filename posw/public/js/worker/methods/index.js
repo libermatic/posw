@@ -15,3 +15,4 @@ export {
 export { default as get_party_details } from './get_party_details';
 export { default as apply_pricing_rule } from './apply_pricing_rule';
 export { default as get_item_details } from './get_item_details';
+export { default as apply_price_list } from './apply_price_list';
