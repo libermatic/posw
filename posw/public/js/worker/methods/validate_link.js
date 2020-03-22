@@ -2,7 +2,14 @@ import { db, tables, getSetting } from '../../store';
 
 export default async function validate_link({ value, options, fetch }) {
   if (
-    ['Customer', 'Customer Group', 'Territory', 'Item Group'].includes(options)
+    [
+      'Company',
+      'Customer',
+      'Customer Group',
+      'Territory',
+      'Item Group',
+      'Price List',
+    ].includes(options)
   ) {
     const storeName = tables[options];
     const entity = await db.table(storeName).get(value);
@@ -14,11 +21,7 @@ export default async function validate_link({ value, options, fetch }) {
     }
   }
 
-  const doctypeToPosField = {
-    Company: 'company',
-    Currency: 'currency',
-    'Price List': 'selling_price_list',
-  };
+  const doctypeToPosField = { Currency: 'currency' };
   if (Object.keys(doctypeToPosField).includes(options) && !fetch) {
     const pos_profile = await getSetting('pos_profile').then(
       name => name && db.pos_profiles.get(name)
