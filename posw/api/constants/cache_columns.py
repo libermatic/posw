@@ -212,7 +212,6 @@ item_price = [
     "currency",
     "customer",
     "item_code",
-    "min_qty",
     "modified",
     "name",
     "packing_unit",
