@@ -20,6 +20,21 @@ export default async function validate_link({ value, options, fetch }) {
       );
     }
   }
+  if (['Contact'].includes(options)) {
+    const entity = await db.customers
+      .where('customer_primary_contact')
+      .equals(value)
+      .toArray();
+    if (entity.length > 0) {
+      if (fetch) {
+        console.log('unhandled');
+      }
+      return Object.assign(
+        { message: 'Ok', valid_value: value },
+        fetch && { fetch: fetch.split(', ').map(_ => null) }
+      );
+    }
+  }
 
   const doctypeToPosField = { Currency: 'currency' };
   if (Object.keys(doctypeToPosField).includes(options) && !fetch) {

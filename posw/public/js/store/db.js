@@ -30,7 +30,7 @@ db.version(1).stores({
   pos_profiles: 'name',
   companies: 'name',
   customers:
-    'name, customer_name, customer_group, territory, mobile_no, primary_address, modified',
+    'name, customer_name, customer_group, territory, mobile_no, primary_address, modified, customer_primary_contact',
   customer_groups: 'name',
   party_accounts: 'name, parenttype, parent, company',
   territories: 'name',
