@@ -122,6 +122,7 @@ loyalty_program = [
     "expiry_duration",
     "from_date",
     "loyalty_program_type",
+    "name",
     "modified",
     "to_date",
 ]

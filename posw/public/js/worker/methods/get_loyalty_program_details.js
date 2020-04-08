@@ -5,12 +5,10 @@ async function getProgram(name) {
   if (!program) {
     return null;
   }
-  return Object.assign(program, {
-    loyalty_program: loyalty_program.name,
-  });
+  return Object.assign(program, { loyalty_program: name });
 }
 
-export default async function({
+export default async function ({
   customer,
   loyalty_program = null,
   expiry_date = null,
@@ -28,8 +26,9 @@ export default async function({
     }
     return {
       loyalty_program:
-        customer_loyalty_program && getProgram(customer_loyalty_program),
+        customer_loyalty_program &&
+        (await getProgram(customer_loyalty_program)),
     };
   }
-  return { loyalty_program: getProgram(loyalty_program) };
+  return { loyalty_program: await getProgram(loyalty_program) };
 }
