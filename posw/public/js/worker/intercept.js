@@ -104,5 +104,8 @@ async function getPayload(_request) {
     const message = await methods.apply_price_list(args);
     return message && { message };
   }
+  if (method === 'erpnext.regional.india.utils.get_regional_address_details') {
+    return {};
+  }
   return null;
 }
