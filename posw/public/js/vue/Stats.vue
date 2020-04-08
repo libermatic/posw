@@ -1,17 +1,28 @@
 <template>
   <div class="root">
     <section>
+      <h2>Storage</h2>
       <div class="title">
         <dl>
           <dt>Usage</dt>
-          <dd>{{ usage }}</dd>
+          <dd class="highlight">{{ usage }}</dd>
           <dd>{{ quota }}</dd>
         </dl>
       </div>
       <div class="content">
-        <dl v-for="feature in features">
+        <dl v-for="feature in features" :key="feature.value">
           <dt>{{ feature.label }}</dt>
           <dd>{{ feature.value }}</dd>
+        </dl>
+      </div>
+    </section>
+    <section>
+      <h2>Datastore</h2>
+      <div class="title">
+        <dl>
+          <dt>Last Updated</dt>
+          <dd class="highlight">{{ lastUpdated.time }}</dd>
+          <dd>{{ lastUpdated.date }}</dd>
         </dl>
       </div>
     </section>
@@ -19,6 +30,8 @@
 </template>
 
 <script>
+import { getSetting } from '../store';
+
 const factor = 1024 * 1024;
 function convert(value) {
   const converted = value / factor;
@@ -27,7 +40,13 @@ function convert(value) {
 
 export default {
   data: function() {
-    return { usage: '0', quota: '0', features: [] };
+    return {
+      usage: '0',
+      quota: '0',
+      lastUpdated: { time: 'N/A', date: '' },
+      features: [],
+      unsynced: [],
+    };
   },
   mounted: function() {
     navigator.storage.estimate().then(({ usage, quota, usageDetails = [] }) => {
@@ -40,6 +59,13 @@ export default {
         })),
       ];
     });
+    getSetting('lastUpdated').then(lastUpdated => {
+      const date = new Date(lastUpdated);
+      this.lastUpdated = {
+        time: date.toLocaleTimeString(),
+        date: date.toLocaleDateString(),
+      };
+    });
   },
 };
 </script>
@@ -48,16 +74,21 @@ export default {
 .root {
   section {
     display: flex;
-    align-items: center;
+    flex-flow: row wrap;
+    h2 {
+      font-size: 1.2em;
+      width: 100%;
+    }
     dl {
       margin: 0;
     }
+    dt {
+      font-weight: 300;
+    }
     .title {
       min-width: 10em;
-      dd {
-        text-align: center;
-      }
-      dd:first-of-type {
+      text-align: center;
+      dd.highlight {
         font-size: 1.8em;
         padding-bottom: 0.1em;
         border-bottom: 1px solid #d1d8dd;
@@ -67,9 +98,6 @@ export default {
     .content {
       dl {
         display: flex;
-        dt {
-          font-weight: 300;
-        }
         dd {
           order: -1;
           width: 5em;
