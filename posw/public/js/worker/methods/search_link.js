@@ -43,8 +43,7 @@ export default async function search_link({
   }
   if (
     doctype === 'Item Group' &&
-    query ===
-      'erpnext.selling.page.point_of_sale.point_of_sale.item_group_query'
+    query === 'erpnext.selling.page.point_of_sale.point_of_sale.item_group_query'
   ) {
     const { pos_profile } = parseArgs(filters) || {};
     if (pos_profile) {
@@ -55,9 +54,7 @@ export default async function search_link({
           .map(x => ({ value: x, description: '' }));
       }
     }
-    const result = await db.item_groups
-      .filter(searchNameWithIgnoreCase(txt))
-      .toArray();
+    const result = await db.item_groups.filter(searchNameWithIgnoreCase(txt)).toArray();
     return result
       .slice(0, page_length)
       .map(({ name: value }) => ({ value, description: '' }));
@@ -74,9 +71,7 @@ export default async function search_link({
       }));
   }
   if (doctype === 'Territory') {
-    const result = await db.territories
-      .filter(searchNameWithIgnoreCase(txt))
-      .toArray();
+    const result = await db.territories.filter(searchNameWithIgnoreCase(txt)).toArray();
     return result
       .slice(0, page_length)
       .map(({ name: value, parent_territory: description }) => ({

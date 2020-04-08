@@ -3,10 +3,7 @@ import * as R from 'ramda';
 import { db } from '../../store';
 
 async function searchById(value) {
-  const entity = await db.item_barcodes
-    .where('barcode')
-    .equals(value)
-    .first();
+  const entity = await db.item_barcodes.where('barcode').equals(value).first();
   if (entity) {
     const { parent: item_code, barcode } = entity;
     return { item_code, barcode };
@@ -23,9 +20,7 @@ async function getItemGroups(item_group, pos_profile) {
     .where('lft')
     .aboveOrEqual(lft)
     .and(
-      x =>
-        x.rgt <= rgt &&
-        (item_groups.length === 0 || item_groups.includes(x.name))
+      x => x.rgt <= rgt && (item_groups.length === 0 || item_groups.includes(x.name))
     )
     .toArray();
   return allowed.map(x => x.name);
@@ -43,7 +38,7 @@ async function itemPriceGetter(items, price_list) {
     R.groupBy(x => x.item_code)
   );
   const pricesByItemCode = makeMap(result);
-  return function(item_code) {
+  return function (item_code) {
     const { price_list_rate, currency } = pricesByItemCode[item_code] || {};
     return { price_list_rate, currency };
   };
@@ -62,7 +57,7 @@ async function actualQtyGetter(items, warehouse) {
     R.groupBy(x => x.item_code)
   );
   const qtyByItemCode = makeMap(result);
-  return function(item_code) {
+  return function (item_code) {
     const actual_qty = qtyByItemCode[item_code];
     return { actual_qty };
   };
@@ -95,10 +90,7 @@ export default async function get_items({
   const { warehouse, display_items_in_stock } =
     (await db.pos_profiles.get(pos_profile)) || {};
   if (item_code) {
-    const result = await db.items
-      .where('name')
-      .equals(item_code)
-      .toArray();
+    const result = await db.items.where('name').equals(item_code).toArray();
     const items = await getItems({ items: result, price_list, warehouse });
     return Object.assign({ items }, R.filter(R.identity, searchResults));
   }

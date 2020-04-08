@@ -43,8 +43,7 @@ db.version(1).stores({
   item_defaults: 'name, parent',
   item_taxes: 'name, parent, item_tax_template -> item_tax_templates.name',
   price_lists: 'name',
-  item_prices:
-    'name, item_code, uom, price_list, customer, valid_from, valid_upto',
+  item_prices: 'name, item_code, uom, price_list, customer, valid_from, valid_upto',
   bins: 'name, item_code, warehouse, actual_qty',
   item_tax_templates: 'name',
 });

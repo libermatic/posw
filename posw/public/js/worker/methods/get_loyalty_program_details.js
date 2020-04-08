@@ -26,8 +26,7 @@ export default async function ({
     }
     return {
       loyalty_program:
-        customer_loyalty_program &&
-        (await getProgram(customer_loyalty_program)),
+        customer_loyalty_program && (await getProgram(customer_loyalty_program)),
     };
   }
   return { loyalty_program: await getProgram(loyalty_program) };

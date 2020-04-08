@@ -39,7 +39,7 @@ function convert(value) {
 }
 
 export default {
-  data: function() {
+  data: function () {
     return {
       usage: '0',
       quota: '0',
@@ -48,7 +48,7 @@ export default {
       unsynced: [],
     };
   },
-  mounted: function() {
+  mounted: function () {
     navigator.storage.estimate().then(({ usage, quota, usageDetails = [] }) => {
       this.usage = convert(usage);
       this.quota = convert(quota);

@@ -27,7 +27,7 @@ async function getParent(args) {
 
 async function getChildren(args, parent) {
   return Promise.all(
-    args.items.map(async function(x) {
+    args.items.map(async function (x) {
       const { variant_of } = await db.items.get(x.item_code);
       const price_list_rate = await getItemPrice(
         Object.assign(
@@ -35,10 +35,7 @@ async function getChildren(args, parent) {
           {
             variant_of,
           },
-          R.pick(
-            ['customer', 'price_list', 'currency', 'transaction_date'],
-            args
-          )
+          R.pick(['customer', 'price_list', 'currency', 'transaction_date'], args)
         )
       );
       const pricingRuleDetails = getRowWithPricingRule(x);
@@ -47,7 +44,7 @@ async function getChildren(args, parent) {
   );
 }
 
-export default async function({ args, as_doc = false }) {
+export default async function ({ args, as_doc = false }) {
   const parsedArgs = JSON.parse(args);
   const parent = await getParent(parsedArgs);
   const children = await getChildren(parsedArgs, parent);

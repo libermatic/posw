@@ -6,9 +6,9 @@ class Worker {
   }
 
   registerHandlers() {
-    self.addEventListener('fetch', async function(e) {
+    self.addEventListener('fetch', async function (e) {
       e.respondWith(
-        (async function() {
+        (async function () {
           const client = await self.clients.get(e.clientId);
           if (client && client.url.includes('desk#point-of-sale')) {
             const response = await posw.intercept.request(e.request);
@@ -21,7 +21,7 @@ class Worker {
       );
     });
 
-    self.addEventListener('message', async function(e) {
+    self.addEventListener('message', async function (e) {
       const { action, payload } = e.data || {};
       if (action === 'load_master_data') {
         e.waitUntil(posw.store.background_fetch(payload));

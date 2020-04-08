@@ -13,7 +13,7 @@ export function getRowWithPricingRule(row) {
 }
 
 // TODO: currently a stub. implement pricing rule
-export default async function({ args, doc = null }) {
+export default async function ({ args, doc = null }) {
   const item = R.head(JSON.parse(args).items) || {};
   return [getRowWithPricingRule(item)];
 }

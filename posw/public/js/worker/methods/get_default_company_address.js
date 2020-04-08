@@ -11,7 +11,7 @@ async function get_default_company_address({
   return getOneshot(`get_default_company_address:'${name}'`);
 }
 
-export default async function(_request) {
+export default async function (_request) {
   const req = _request.clone();
   const args = getArgs(await req.text());
   if (!args) {

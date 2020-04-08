@@ -14,9 +14,7 @@ async function runserverobj({
   if (method === 'set_missing_values' && docs) {
     const parsed = JSON.parse(docs);
     if (parsed && parsed.doctype === 'Sales Invoice') {
-      const data = await getOneshot(
-        'runserverobj:SalesInvoice.set_missing_values'
-      );
+      const data = await getOneshot('runserverobj:SalesInvoice.set_missing_values');
       if (data && data.docs && data.docs[0]) {
         return Object.assign(data, {
           docs: [Object.assign(data.docs[0], parsed)],
@@ -27,7 +25,7 @@ async function runserverobj({
   return null;
 }
 
-export default async function(_request) {
+export default async function (_request) {
   const req = _request.clone();
   const args = getArgs(await req.text());
   const valid = await runserverobj(args);

@@ -52,7 +52,7 @@ async function defaultGetter(item, parsed) {
         default_warehouse: '',
       })
     );
-  return function(field) {
+  return function (field) {
     if (defaults && defaults[field]) {
       return defaults[field];
     }
@@ -111,8 +111,7 @@ async function getItemTax(item, parsed) {
     .and(
       x =>
         x.parenttype === 'Item' &&
-        (!x.valid_from ||
-          new Date(x.valid_from) <= new Date(parsed.transaction_date))
+        (!x.valid_from || new Date(x.valid_from) <= new Date(parsed.transaction_date))
     )
     .with({ item_tax_template: 'item_tax_template' });
   if (item_taxes.length > 0) {
@@ -125,8 +124,7 @@ async function getItemTax(item, parsed) {
     .and(
       x =>
         x.parenttype === 'Item Group' &&
-        (!x.valid_from ||
-          new Date(x.valid_from) <= new Date(parsed.transaction_date))
+        (!x.valid_from || new Date(x.valid_from) <= new Date(parsed.transaction_date))
     )
     .with({ item_tax_template: 'item_tax_template' });
   if (group_taxes.length > 0) {
@@ -167,8 +165,7 @@ export async function getItemPrice({
           x.price_list === price_list &&
           x.currency === currency &&
           (!x.uom || x.uom === uom) &&
-          new Date(x.valid_from || '2000-01-01') <=
-            new Date(transaction_date) &&
+          new Date(x.valid_from || '2000-01-01') <= new Date(transaction_date) &&
           new Date(transaction_date) <= new Date(x.valid_upto || '2500-12-31')
       )
       .toArray();
@@ -205,7 +202,7 @@ async function getBinData(item, warehouse) {
 // TODO:
 // implement pricing rule
 // implemet batch and serials
-export default async function({
+export default async function ({
   args,
   doc = null,
 
@@ -248,10 +245,7 @@ export default async function({
     { actual_qty, valuation_rate, projected_qty, reserved_qty },
   ] = await Promise.all([
     getConversionFactor(item, uom),
-    db.item_barcodes
-      .where('parent')
-      .equals(item.name)
-      .toArray(),
+    db.item_barcodes.where('parent').equals(item.name).toArray(),
     getItemTax(item, parsed),
     getBinData(item, warehouse),
   ]);

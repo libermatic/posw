@@ -88,11 +88,10 @@ function getBody(opts) {
 
 function getStatusHandler(opts, status) {
   const handlers = {
-    200: function(data) {
-      opts.success_callback &&
-        opts.success_callback(data, JSON.stringify(data));
+    200: function (data) {
+      opts.success_callback && opts.success_callback(data, JSON.stringify(data));
     },
-    401: function() {
+    401: function () {
       if (
         frappe.app.session_expired_dialog &&
         frappe.app.session_expired_dialog.display
@@ -102,14 +101,14 @@ function getStatusHandler(opts, status) {
         frappe.app.handle_session_expired();
       }
     },
-    404: function() {
+    404: function () {
       frappe.msgprint({
         title: __('Not found'),
         indicator: 'red',
         message: __('The resource you are looking for is not available'),
       });
     },
-    403: function(data) {
+    403: function (data) {
       if (frappe.get_cookie('sid') === 'Guest') {
         // session expired
         frappe.app.handle_session_expired();
@@ -132,7 +131,7 @@ function getStatusHandler(opts, status) {
         ),
       });
     },
-    508: function() {
+    508: function () {
       frappe.utils.play_sound('error');
       frappe.msgprint({
         title: __('Please try again'),
@@ -142,7 +141,7 @@ function getStatusHandler(opts, status) {
         ),
       });
     },
-    413: function() {
+    413: function () {
       frappe.msgprint({
         indicator: 'red',
         title: __('File too big'),
@@ -151,13 +150,13 @@ function getStatusHandler(opts, status) {
         ]),
       });
     },
-    417: function(xhr) {
+    417: function (xhr) {
       opts.error_callback && opts.error_callback(data);
     },
-    501: function(data) {
+    501: function (data) {
       opts.error_callback && opts.error_callback(data, JSON.stringify(data));
     },
-    500: function(data) {
+    500: function (data) {
       frappe.utils.play_sound('error');
       try {
         opts.error_callback && opts.error_callback();
@@ -166,11 +165,11 @@ function getStatusHandler(opts, status) {
         frappe.request.report_error(data, opts);
       }
     },
-    504: function() {
+    504: function () {
       frappe.msgprint(__('Request Timed Out'));
       opts.error_callback && opts.error_callback();
     },
-    502: function() {
+    502: function () {
       frappe.msgprint(__('Internal Server Error'));
     },
   };

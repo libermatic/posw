@@ -2,14 +2,11 @@ import db, { tables, getSetting, putSetting } from './db';
 import queryString from 'query-string';
 
 export default async function background_fetch({ csrf_token }) {
-  const lastUpdated =
-    (await getSetting('lastUpdated')) || new Date(0).toISOString();
+  const lastUpdated = (await getSetting('lastUpdated')) || new Date(0).toISOString();
   const currentTime = new Date().toISOString();
   const options = getOptions(csrf_token);
   await Promise.all(
-    Object.keys(tables).map(doctype =>
-      batchRequest({ doctype, lastUpdated, options })
-    )
+    Object.keys(tables).map(doctype => batchRequest({ doctype, lastUpdated, options }))
   );
   return putSetting('lastUpdated', currentTime);
 }

@@ -19,8 +19,7 @@ async function getAccount(customer, company) {
   if (group_account) {
     return group_account.account;
   }
-  const { default_receivable_account } =
-    (await db.companies.get(company)) || {};
+  const { default_receivable_account } = (await db.companies.get(company)) || {};
   return default_receivable_account;
 }
 
@@ -29,13 +28,12 @@ async function getPricelist(customer, pos_profile, price_list) {
     return customer.default_price_list;
   }
   if (pos_profile) {
-    const { selling_price_list } =
-      (await db.pos_profiles.get(pos_profile)) || {};
+    const { selling_price_list } = (await db.pos_profiles.get(pos_profile)) || {};
     return selling_price_list || price_list;
   }
 }
 
-export default async function({
+export default async function ({
   party = null,
   account = null,
   party_type = 'Customer',

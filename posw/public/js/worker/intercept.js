@@ -12,9 +12,7 @@ export async function request(_request) {
   } catch (e) {
     return respond(
       {
-        _server_messages: JSON.stringify([
-          { indicator: 'red', message: e.message },
-        ]),
+        _server_messages: JSON.stringify([{ indicator: 'red', message: e.message }]),
         exc: JSON.stringify([e.stack]),
         exc_type: e.name,
       },
@@ -53,15 +51,11 @@ async function getPayload(_request) {
   if (method === 'runserverobj') {
     return methods.runserverobj(_request);
   }
-  if (
-    method ===
-    'erpnext.setup.doctype.company.company.get_default_company_address'
-  ) {
+  if (method === 'erpnext.setup.doctype.company.company.get_default_company_address') {
     return methods.get_default_company_address(_request);
   }
   if (
-    method ===
-    'erpnext.controllers.accounts_controller.get_default_taxes_and_charges'
+    method === 'erpnext.controllers.accounts_controller.get_default_taxes_and_charges'
   ) {
     return methods.get_default_taxes_and_charges(_request);
   }
@@ -87,8 +81,7 @@ async function getPayload(_request) {
     return message && { message };
   }
   if (
-    method ===
-    'erpnext.accounts.doctype.pricing_rule.pricing_rule.apply_pricing_rule'
+    method === 'erpnext.accounts.doctype.pricing_rule.pricing_rule.apply_pricing_rule'
   ) {
     const args = getArgs(await req.text());
     const message = await methods.apply_pricing_rule(args);

@@ -14,7 +14,7 @@ async function get_default_taxes_and_charges({
   return null;
 }
 
-export default async function(_request) {
+export default async function (_request) {
   const req = _request.clone();
   const args = getArgs(await req.text());
   if (!args) {

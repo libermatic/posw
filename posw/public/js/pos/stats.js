@@ -12,7 +12,7 @@ function showStats() {
     render: h => h(Stats),
   });
   dialog.show();
-  dialog.onhide = function() {
+  dialog.onhide = function () {
     this.$wrapper.remove();
   };
 }
