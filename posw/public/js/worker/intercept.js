@@ -73,6 +73,14 @@ async function getPayload(_request) {
     const message = await methods.get_loyalty_program_details(args);
     return message && { message };
   }
+  if (
+    method ===
+    'erpnext.accounts.doctype.sales_invoice.sales_invoice.get_loyalty_programs'
+  ) {
+    const args = getArgs(await req.text());
+    const message = await methods.get_loyalty_programs(args);
+    return message ? { message } : {};
+  }
   if (method === 'erpnext.accounts.party.get_party_details') {
     const args = getArgs(await req.text());
     const message = await methods.get_party_details(args);
