@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/libermatic/posw#readme",
   "dependencies": {
+    "@sentry/browser": "^5.15.4",
     "dexie": "^2.0.4",
     "dexie-relationships": "^1.2.11",
     "query-string": "^6.11.1",

@@ -1,2 +1,4 @@
 frappe
 erpnext
+toolz
+python-dotenv
