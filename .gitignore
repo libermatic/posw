@@ -5,6 +5,7 @@
 tags
 posw/docs/current
 __pycache__
+.env
 
 # Bench runtime
 node_modules/
