@@ -1,8 +1,9 @@
 import * as extensions from './extensions';
 
-frappe.provide('posw');
+const __version__ = '0.0.0';
 
-posw = { extensions };
+frappe.provide('posw');
+posw = { __version__, extensions };
 
 if ('serviceWorker' in navigator) {
   // do not use native method
