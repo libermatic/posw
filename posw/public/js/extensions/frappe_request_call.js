@@ -150,7 +150,7 @@ function getStatusHandler(opts, status) {
         ]),
       });
     },
-    417: function (xhr) {
+    417: function (data) {
       opts.error_callback && opts.error_callback(data);
     },
     501: function (data) {
