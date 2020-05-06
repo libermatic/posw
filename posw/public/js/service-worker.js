@@ -1,6 +1,6 @@
 self.importScripts('/assets/js/posw-worker.min.js');
 
-const CACHE_NAME = 'scripts-v1';
+const CACHE_NAME = 'cache-v1';
 
 class Worker {
   constructor() {
