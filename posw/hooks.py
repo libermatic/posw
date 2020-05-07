@@ -58,7 +58,7 @@ page_js = {"point-of-sale": "public/js/point_of_sale.js"}
 # before_install = "posw.install.before_install"
 # after_install = "posw.install.after_install"
 
-boot_session = "posw.boot.boot_session"
+# boot_session = "posw.boot.boot_session"
 
 # Desk Notifications
 # ------------------
