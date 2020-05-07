@@ -7,15 +7,14 @@ export default function base(Pos) {
     class PosWithBase extends Pos {
       constructor(wrapper) {
         super(wrapper);
-        this.load_master_data();
+        putSetting('csrf_token', frappe.csrf_token).then(
+          this.load_master_data.bind(this)
+        );
       }
       async load_master_data() {
         const registration = await navigator.serviceWorker.ready;
         if (registration.active) {
-          registration.active.postMessage({
-            action: 'load_master_data',
-            payload: { csrf_token: frappe.csrf_token },
-          });
+          registration.active.postMessage({ action: 'load_master_data' });
         }
       }
       async set_pos_profile_data() {

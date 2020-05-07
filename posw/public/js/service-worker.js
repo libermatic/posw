@@ -31,9 +31,9 @@ class Worker {
     });
 
     self.addEventListener('message', function (e) {
-      const { action, payload } = e.data || {};
+      const { action } = e.data || {};
       if (action === 'load_master_data') {
-        e.waitUntil(posw.store.background_fetch(payload));
+        e.waitUntil(posw.store.background_fetch());
       }
     });
   }

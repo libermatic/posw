@@ -1,10 +1,14 @@
-import db, { tables, getSetting, putSetting } from './db';
 import queryString from 'query-string';
 
-export default async function background_fetch({ csrf_token }) {
+import db, { tables, getSetting, putSetting } from './db';
+
+import { getRequestOptions } from './utils';
+
+export default async function background_fetch() {
   const lastUpdated = (await getSetting('lastUpdated')) || new Date(0).toISOString();
   const currentTime = new Date().toISOString();
-  const options = getOptions(csrf_token);
+  const options = await getRequestOptions();
+
   await Promise.all(
     Object.keys(tables).map(doctype => batchRequest({ doctype, lastUpdated, options }))
   );
@@ -33,16 +37,4 @@ async function cache(doctype, data) {
   if (storeName) {
     return db.table(storeName).bulkPut(data);
   }
-}
-
-function getOptions(csrf_token) {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      Accept: 'application/json',
-      'X-Frappe-CSRF-Token': csrf_token,
-      'X-Frappe-CMD': '',
-    },
-  };
 }
