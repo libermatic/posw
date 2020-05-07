@@ -1,4 +1,3 @@
-import { putOneshot } from '../store';
 import * as methods from './methods';
 import { getMethod, getParams, getArgs, respond } from './utils';
 

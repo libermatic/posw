@@ -49,4 +49,4 @@ class Worker {
   }
 }
 
-const worker = new Worker();
+new Worker();
