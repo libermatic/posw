@@ -1,21 +1,6 @@
-import * as Sentry from '@sentry/browser';
-
 import * as extensions from './extensions';
 
 const __version__ = '0.0.0';
-
-Sentry.init({
-  dsn: frappe.boot.sentry_dsn,
-  release: __version__,
-  beforeSend(event, hint) {
-    console.log(event);
-    if (!event.request.url.includes('#point-of-sale')) {
-      return null;
-    }
-    return event;
-  },
-});
-Sentry.setUser({ email: frappe.boot.user.name });
 
 frappe.provide('posw');
 posw = { __version__, extensions };
