@@ -46,6 +46,7 @@ db.version(1).stores({
   item_prices: 'name, item_code, uom, price_list, customer, valid_from, valid_upto',
   bins: 'name, item_code, warehouse, actual_qty',
   item_tax_templates: 'name',
+  pos_invoices: 'offline_pos_name',
 });
 
 export async function getSetting(key) {

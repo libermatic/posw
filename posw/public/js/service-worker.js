@@ -36,6 +36,16 @@ class Worker {
         e.waitUntil(posw.store.background_fetch());
       }
     });
+
+    self.addEventListener('sync', function (e) {
+      e.waitUntil(
+        (async function () {
+          const docname = await posw.store.background_sync(e.tag);
+          const channel = new BroadcastChannel('invoice-sync');
+          channel.postMessage({ status: 'SUCCESS', docname });
+        })()
+      );
+    });
   }
 }
 
